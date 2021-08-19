@@ -8,7 +8,7 @@
 #include <iostream>
 #include <unistd.h>
 #include <cstring>
-enum spiPort{
+enum SpiPort{
     SpiPort0 = 0,
     SpiPort1 = 1,
 };
@@ -17,7 +17,7 @@ enum spiPort{
 class spi
 {
 
-    public:             //public to test; protected within mfrc class
+    private:             //public to test; protected within mfrc class
         struct spi_ioc_transfer spi;
         int spi_device = 0;    
         unsigned char spi_mode = SPI_MODE_0;

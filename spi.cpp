@@ -3,7 +3,7 @@
 
 
 
-int SPI::SpiOpenPort(spiPort port)
+int SPI::SpiOpenPort(SpiPort port)
 {
     (port == SpiPort0) ? (portPath = "/dev/spidev0.0") : (portPath = "/dev/spidev0.1");
     spi_cs = open(portPath, O_RDWR);
@@ -12,7 +12,8 @@ int SPI::SpiOpenPort(spiPort port)
 
 
 int SPI::SpiClosePort()
-{
+{   
+    
 
 
 }

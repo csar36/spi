@@ -18,12 +18,13 @@ int SPI::SpiClosePort()
 }
 
 
-void SPI::setSpiParams(int _spi_device, unsigned char _spi_mode, unsigned char _spi_bitsPerWord, unsigned char _spi_speed)    
+void SPI::setSpiParams(uint8_t _spi_mode, uint8_t _spi_bitsPerWord, uint32_t _spi_speed, uint16_t _spi_delay = 0, uint8_t _spi_csChange = 0)    
 {
-   spi_device =  _spi_device;
    spi_mode = _spi_mode;
    spi_bitsPerWord=_spi_bitsPerWord;
    spi_speed = _spi_speed;
+   spi_delay = _spi_delay;
+   spi_csChange = _spi_csChange
 }  
 
 
@@ -56,15 +57,15 @@ int SPI::adjustSpiParams()
 int SPI::SpiWriteRead(unsigned char* TxData, unsigned char* RxData, int len)
 {
 
-  memset (&spi, 0, sizeof (spi)) ;
+  memset (&spi, 0, sizeof (spi)) ;          
 
   spi.tx_buf        = (unsigned long)TxData;
   spi.rx_buf        = (unsigned long)RxData;
   spi.len           = len ;
-  spi.delay_usecs   = spiDelay ;
+  spi.delay_usecs   = spi_delay ;
   spi.speed_hz      = spi_speed;
   spi.bits_per_word = spi_bitsPerWord ;
-  spi.cs_change     = 0;
+  spi.cs_change     = spi_csChange;
 
 
   if((ioctl(fd, SPI_IOC_MESSAGE(1), &spi)<0))

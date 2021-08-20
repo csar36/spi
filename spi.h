@@ -8,6 +8,7 @@
 #include <iostream>
 #include <unistd.h>
 #include <cstring>
+
 enum SpiPort{
     SpiPort0 = 0,
     SpiPort1 = 1,
@@ -17,23 +18,24 @@ enum SpiPort{
 class spi
 {
 
-    private:             //public to test; protected within mfrc class
+    public: 
         struct spi_ioc_transfer spi;
         int spi_device = 0;    
         unsigned char spi_mode = SPI_MODE_0;
-        unsigned char spi_bitsPerWord = 8;
-        unsigned int spi_speed = 500000;
-
-
+        uint8_t spi_bitsPerWord = 8;
+        uint32_t spi_speed = 500000; 
+        uint16_t spi_delay = 0;
     public:
-        int SpiOpenPort(spiPort port);
+
+        int SpiOpenPort(spiPort _port);
         int SpiClosePort();
-        int setSpiParams();       
-        int SpiClosePort();
+        void setSpiParams(int _spi_device, unsigned char _spi_mode, unsigned char _spi_bitsPerWord, unsigned char _spi_speed);   
+        int adjustSpiParams();    
         int SpiWriteRead();
 
     private: 
         std::string portPath;
         int spi_cs;
+        int fd;
         
 };
